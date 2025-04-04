@@ -10,7 +10,7 @@ document.getElementById("cloudServiceForm").addEventListener("submit", function(
   });
 
   // 백엔드 API URL (실제 API 엔드포인트로 수정 필요)
-  const apiUrl = 'https://222.239.67.159/write/write-draft';
+  const apiUrl = 'https://222.239.67.159/write/write_draft';
 
   // fetch를 통해 데이터 전송
   fetch(apiUrl, {
