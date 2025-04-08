@@ -12,8 +12,7 @@ document.getElementById("cloudServiceForm").addEventListener("submit", function(
   // 백엔드 API URL (실제 API 엔드포인트로 수정 필요)
   const apiUrl = 'https://wandsol.kr/write/write_draft';
 
-  // fetch를 통해 데이터 전송
-  fetch(apiUrl, {
+   fetch(apiUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -25,17 +24,20 @@ document.getElementById("cloudServiceForm").addEventListener("submit", function(
     return response.blob();
   })
   .then(blob => {
-    // 응답받은 Blob 데이터를 다운로드 링크로 변환하여 파일 다운로드
+    // Blob 데이터를 URL 객체로 변환 후, 다운로드 링크를 생성하여 파일 다운로드 실행
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "result.hwp"; // 원하는 파일명으로 변경 가능
+    a.download = "draft.hwp"; // 파일명을 "draft.hwp"로 고정합니다.
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
+    // 사용 후 DOM에서 제거 및 URL 객체 메모리 해제
+    a.remove();
+    window.URL.revokeObjectURL(url);
   })
   .catch(error => {
     console.error("오류 발생: ", error);
     alert("파일 생성 중 오류가 발생했습니다.");
   });
+
 });
